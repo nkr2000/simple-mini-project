@@ -33,11 +33,9 @@ def model_predict(img_path, model):
 
     # Preprocessing the image
     x = image.img_to_array(img)
-    # x = np.true_divide(x, 255)
     x = np.expand_dims(x, axis=0)
 
-    # Be careful how your trained model deals with the input
-    # otherwise, it won't make correct prediction!
+
     x = preprocess_input(x)
 
     preds = model.predict(x)
@@ -65,10 +63,8 @@ def upload():
         # Make prediction
         preds = model_predict(file_path, model)
 
-        # Process your result for human
-        # pred_class = preds.argmax(axis=-1)            # Simple argmax
-        pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
-        result = str(pred_class[0][0][1])               # Convert to string
+        pred_class = decode_predictions(preds, top=1)   
+        result = str(pred_class[0][0][1])               
         return result
     return None
 
